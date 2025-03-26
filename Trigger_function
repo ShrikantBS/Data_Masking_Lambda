@@ -1,0 +1,3 @@
+aws events put-rule --schedule-expression "rate(6 hours)" --name "DataMaskingJob"
+aws lambda add-permission --function-name MaskingLambda --statement-id EventRule --action "lambda:InvokeFunction" --principal events.amazonaws.com --source-arn arn:aws:events:region:account-id:rule/DataMaskingJob
+aws events put-targets --rule "DataMaskingJob" --targets "Id"="1","Arn"="arn:aws:lambda:region:account-id:function:MaskingLambda"
